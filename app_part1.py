@@ -4,7 +4,10 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
+
+API_KEY = os.environ["GEMINI_API_KEY"]
+
+client = genai.Client(api_key=API_KEY)
 
 st.title("From RAGs to Responses: Code Your Own AI Study Buddy")
 
