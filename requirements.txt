@@ -2,3 +2,5 @@ streamlit
 google-genai
 chromadb
 python-dotenv
+chromadb
+PyPDF2
