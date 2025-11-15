@@ -113,13 +113,15 @@ if user_input:
 
     assistant_message = messages.chat_message("ai")
     assistant_placeholder = assistant_message.empty()
-    full_response = ""
+    full_response = []
+    latest_text = ""
 
     for chunk in response:
         chunk_text = getattr(chunk, "text", "")
         if not chunk_text:
             continue
-        full_response += chunk_text
-        assistant_placeholder.write(full_response)
+        full_response.append(chunk_text)
+        latest_text = "\n".join(full_response)
+        assistant_placeholder.write(latest_text)
 
-    chat_history.append({"role": "ai", "content": full_response})
+    chat_history.append({"role": "ai", "content": latest_text})
