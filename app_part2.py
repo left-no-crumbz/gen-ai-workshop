@@ -12,7 +12,12 @@ client = genai.Client(api_key=API_KEY)
 
 st.title("From RAGs to Responses: Code Your Own AI Study Buddy")
 
+chat_history: list[dict[str, str]] = st.session_state.setdefault("chat_history", [])
+
 messages = st.container(height=600)
+
+for past_message in chat_history:
+    messages.chat_message(past_message["role"]).write(past_message["content"])
 
 user_input = st.chat_input("Ask a question about the PDF", accept_file="multiple", file_type=["pdf"])
 
@@ -35,5 +40,20 @@ if user_input:
 
     # Generate a response
     contents = [user_question] + gemini_files
+
+    assistant_message = messages.chat_message("ai")
+    assistant_placeholder = assistant_message.empty()
+    full_response = []
+    latest_text = ""
+
     response = client.models.generate_content_stream(model="gemini-2.5-flash-lite", contents=contents)
-    messages.chat_message("ai").write_stream(chunk.text for chunk in response)
+
+    for chunk in response:
+        chunk_text = getattr(chunk, "text", "")
+        if not chunk_text:
+            continue
+        full_response.append(chunk_text)
+        latest_text = "\n".join(full_response)
+        assistant_placeholder.write(latest_text)
+
+    chat_history.append({"role": "ai", "content": latest_text})
