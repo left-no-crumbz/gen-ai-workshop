@@ -42,6 +42,15 @@ python app_part2.py
 python app_part3.py
 ```
 
+## Colab Links
+Part 1
+https://colab.research.google.com/drive/1pYfhNRaQ7D3n4KbXvwxyKGhx8k9XfT3F?usp=sharing
+
+Part 2
+https://colab.research.google.com/drive/11BCqYFpSoIGnS33TrvGaunNKD3RWoPIz?usp=sharing
+
+Part 3
+https://colab.research.google.com/drive/1HaaybqRbY21TS4n80XcaX2P_d3YfSeUW?usp=sharing
 ## Troubleshooting
 - If activation fails, ensure PowerShell execution policy allows scripts (e.g., `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`).
 - If you change dependencies, regenerate `requirements.txt` with `pip freeze > requirements.txt` while the venv is active.
